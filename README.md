@@ -7,7 +7,10 @@
     <img src="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml/badge.svg" alt="Test">
 </a>
 <a href="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml" target="_blank">
-    <img src="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml/badge.svg" alt="Test">
+    <img src="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml/badge.svg" alt="CodeQL Analysis">
+</a>
+<a href="https://twitter.com/__aviperl__" target="_blank">
+    <img src="https://badgen.net/badge/icon/twitter?icon=twitter&label=Chat%20with%20me" alt="Twitter">
 </a>
 </p>
 
