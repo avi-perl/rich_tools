@@ -1,15 +1,25 @@
-# 🔧 Rich Tools
-[![Tests](https://github.com/avi-perl/rich_tools/actions/workflows/python-app.yml/badge.svg)](https://github.com/avi-perl/rich_tools/actions/workflows/python-app.yml)
+<h1 align="center" style="font-size:50px;">🔧 Rich Tools</h1>
+<p align="center">
+    <em>A python package with helpful functions for use alongside with the <a href="https://github.com/willmcgugan/rich">rich</a> python library.</em>
+</p>
+<p align="center">
+<a href="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml" target="_blank">
+    <img src="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml/badge.svg" alt="Test">
+</a>
+<a href="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml" target="_blank">
+    <img src="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml/badge.svg" alt="Test">
+</a>
+</p>
 
-A python package with helpful tools when working with the [rich](https://github.com/willmcgugan/rich) python library.
+---
 
 The current features are:
 
-- Convert a [Pandas](https://pandas.pydata.org/) DataFrame into a [rich](https://github.com/willmcgugan/rich) Table.
+- **Convert a [Pandas](https://pandas.pydata.org/) DataFrame into a [rich](https://github.com/willmcgugan/rich) Table.**
 
   By making this conversion, we can now pretty print a DataFrame in the terminal with rich. Bridging the gap between 
   pandas and rich also provides a path for loading external data into a rich Table using Pandas functions such as `.from_csv()`!
-- Convert a [rich](https://github.com/willmcgugan/rich) Table into a [Pandas](https://pandas.pydata.org/) DataFrame.
+- **Convert a [rich](https://github.com/willmcgugan/rich) Table into a [Pandas](https://pandas.pydata.org/) DataFrame.**
 
   By bridging the gap between a rich Table and a DataFrame, we can now take additional actions on our data such as   
   saving the data to a csv using the Pandas function `.to_csv()`!
@@ -20,7 +30,7 @@ $ pip install rich-tools
 ```
 
 ### Example
-Additional examples can be found in the `examples` dir.
+Additional examples can be found in the [examples](examples) dir.
 ```python
 from datetime import datetime
 
