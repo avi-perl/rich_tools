@@ -3,12 +3,7 @@ from typing import Optional
 from rich.text import Text
 from rich.table import Table
 
-try:
-    import pandas as pd
-except ImportError:
-    print("Please install pandas to use pandas related tools")
-    print("    pip install pandas")
-    exit()
+import pandas as pd
 
 
 def df_to_table(
