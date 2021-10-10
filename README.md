@@ -1,4 +1,5 @@
 # 🔧 Rich Tools
+[![Tests](https://github.com/avi-perl/rich_tools/actions/workflows/python-app.yml/badge.svg)](https://github.com/avi-perl/rich_tools/actions/workflows/python-app.yml)
 
 A python package with helpful tools when working with the [rich](https://github.com/willmcgugan/rich) python library.
 
