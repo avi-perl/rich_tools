@@ -6,6 +6,10 @@
 <a href="https://pypi.org/project/rich-tools/">
     <img src="https://badge.fury.io/py/rich-tools.svg" alt="PyPI version">
 </a>
+<a href="https://badge.fury.io/py/rich_tools">
+    <img src="https://img.shields.io/pypi/pyversions/rich_tools" alt="Supported Python Versions">
+</a>
+<br/>
 <a href="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml" target="_blank">
     <img src="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml/badge.svg" alt="Test">
 </a>
