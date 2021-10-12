@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rich-tools"
-version = "0.2.0"
+version = "0.2.1"
 description = "A python package with helpful tools when working with the rich python library."
 authors = ["Avi Perl <avi@aviperl.me>"]
 license = "MIT"
