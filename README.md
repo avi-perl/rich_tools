@@ -3,23 +3,19 @@
     <em>A python package with helpful functions for use alongside with the <a href="https://github.com/willmcgugan/rich">rich</a> python library.</em>
 </p>
 <p align="center">
-<a href="https://pypi.org/project/rich-tools/">
+<a href="https://pypi.org/project/rich-tools/" target="_blank">
     <img src="https://badge.fury.io/py/rich-tools.svg" alt="PyPI version">
 </a>
-<a href="https://badge.fury.io/py/rich_tools">
+<a href="https://badge.fury.io/py/rich_tools"code>
     <img src="https://img.shields.io/pypi/pyversions/rich_tools" alt="Supported Python Versions">
 </a>
-<br/>
 <a href="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml" target="_blank">
     <img src="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml/badge.svg" alt="Test">
 </a>
-<a href="https://codecov.io/gh/avi-perl/rich_tools">
+<a href="https://codecov.io/gh/avi-perl/rich_tools" target="_blank">
   <img src="https://codecov.io/gh/avi-perl/rich_tools/branch/master/graph/badge.svg?token=7A5RYLZ37B"/>
 </a>
-<a href="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml" target="_blank">
-    <img src="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml/badge.svg" alt="CodeQL Analysis">
-</a>
-<br/>
+󠀠󠀠
 <a href="https://twitter.com/__aviperl__" target="_blank">
     <img src="https://badgen.net/badge/icon/twitter?icon=twitter&label=Chat%20with%20me" alt="Twitter">
 </a>
@@ -46,46 +42,17 @@ $ pip install rich-tools
 ### Example
 Additional examples can be found in the [examples](examples) dir.
 ```python
-from datetime import datetime
+# Print csv data to the terminal as a pretty printed rich formatted table
 
 import pandas as pd
-from rich import box
-from rich.console import Console
+from rich import print
 from rich.table import Table
+from rich_tools import df_to_table
 
-from rich_tools.table import df_to_table
-
-console = Console()
-
-
-if __name__ == "__main__":
-    sample_data = {
-        "Date": [
-            datetime(year=2019, month=12, day=20),
-            datetime(year=2018, month=5, day=25),
-            datetime(year=2017, month=12, day=15),
-        ],
-        "Title": [
-            "Star Wars: The Rise of Skywalker",
-            "[red]Solo[/red]: A Star Wars Story",
-            "Star Wars Ep. VIII: The Last Jedi",
-        ],
-        "Production Budget": ["$275,000,000", "$275,000,000", "$262,000,000"],
-        "Box Office": ["$375,126,118", "$393,151,347", "$1,332,539,889"],
-    }
-    df = pd.DataFrame(sample_data)
-
-    # Initiate a Table instance to be modified
-    table = Table(show_header=True, header_style="bold magenta")
-
-    # Modify the table instance to have the data from the DataFrame
-    table = df_to_table(df, table)
-
-    # Update the style of the table
-    table.row_styles = ["none", "dim"]
-    table.box = box.SIMPLE_HEAD
-
-    console.print(table)
+if __name__ == '__main__':
+    df = pd.read_csv("sample_input.csv")
+    table = df_to_table(df, Table())
+    print(table)
 
 ```
 
