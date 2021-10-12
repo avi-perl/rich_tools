@@ -3,12 +3,16 @@
     <em>A python package with helpful functions for use alongside with the <a href="https://github.com/willmcgugan/rich">rich</a> python library.</em>
 </p>
 <p align="center">
+<a href="https://pypi.org/project/rich-tools/">
+    <img src="https://badge.fury.io/py/rich-tools.svg" alt="PyPI version">
+</a>
 <a href="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml" target="_blank">
     <img src="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml/badge.svg" alt="Test">
 </a>
 <a href="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml" target="_blank">
     <img src="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml/badge.svg" alt="CodeQL Analysis">
 </a>
+<br/>
 <a href="https://twitter.com/__aviperl__" target="_blank">
     <img src="https://badgen.net/badge/icon/twitter?icon=twitter&label=Chat%20with%20me" alt="Twitter">
 </a>
@@ -16,7 +20,7 @@
 
 ---
 
-The current features are:
+#### The current features are:
 
 - **Convert a [Pandas](https://pandas.pydata.org/) DataFrame into a [rich](https://github.com/willmcgugan/rich) Table.**
 
@@ -77,3 +81,10 @@ if __name__ == "__main__":
     console.print(table)
 
 ```
+
+### Credits
+- Like the [rich](https://github.com/willmcgugan/rich) package itself, its creator [Will McGugan](https://twitter.com/willmcgugan)
+is awesome! Check out [Textual](https://github.com/willmcgugan/textual) "a TUI (Text User Interface) framework for 
+Python inspired by modern web development". Thank you for the advice you've given on this project! 🙏
+- I am grateful for folks who give some of their time to this project in any form. Check out the list of 
+[contributors](https://github.com/avi-perl/rich_tools/graphs/contributors) and learn more about contributing [here](CONTRIBUTING.md).
