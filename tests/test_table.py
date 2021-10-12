@@ -9,7 +9,7 @@ import pytest
 import pandas as pd
 from rich.table import Table
 
-from rich_tools.table import table_to_df, df_to_table
+from rich_tools import table_to_df, df_to_table
 
 
 @pytest.fixture

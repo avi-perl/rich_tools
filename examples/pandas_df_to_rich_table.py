@@ -5,7 +5,7 @@ from rich import box
 from rich.console import Console
 from rich.table import Table
 
-from rich_tools.table import df_to_table
+from rich_tools import df_to_table
 
 console = Console()
 

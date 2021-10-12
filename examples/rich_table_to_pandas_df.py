@@ -1,7 +1,7 @@
 from rich.console import Console
 from rich.table import Table
 
-from rich_tools.table import table_to_df
+from rich_tools import table_to_df
 
 console = Console()
 
