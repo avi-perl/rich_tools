@@ -47,7 +47,9 @@ def table_to_df(rich_table: Table) -> pd.DataFrame:
     Returns:
         DataFrame: A pandas DataFrame with the Table data as its values."""
 
-    return pd.DataFrame({
-        x.header: [Text.from_markup(y).plain for y in x.cells]
-        for x in rich_table.columns
-    })
+    return pd.DataFrame(
+        {
+            x.header: [Text.from_markup(y).plain for y in x.cells]
+            for x in rich_table.columns
+        }
+    )
