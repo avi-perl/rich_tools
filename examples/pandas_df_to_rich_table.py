@@ -27,11 +27,8 @@ if __name__ == "__main__":
     }
     df = pd.DataFrame(sample_data)
 
-    # Initiate a Table instance to be modified
-    table = Table(show_header=True, header_style="bold magenta")
-
     # Modify the table instance to have the data from the DataFrame
-    table = df_to_table(df, table)
+    table = df_to_table(df)
 
     # Update the style of the table
     table.row_styles = ["none", "dim"]

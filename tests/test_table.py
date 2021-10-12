@@ -59,6 +59,23 @@ def test_df_to_table(df):
     assert len(new_table.columns) == df.shape[1] + 1
 
 
+def test_df_to_table_default_table(df):
+    new_table = df_to_table(df)
+
+    assert isinstance(new_table, Table)
+    assert new_table.row_count == len(df.index)
+    # Index was added to the table, so the number of columns will be +1
+    assert len(new_table.columns) == df.shape[1] + 1
+
+
+def test_df_to_table_alt_table_used(df):
+    table = Table(show_header=True, header_style="bold magenta")
+    new_table = df_to_table(df, table)
+
+    assert new_table.header_style == "bold magenta"
+    assert df_to_table(df).header_style != "bold magenta"
+
+
 def test_df_to_table_show_index_true(df):
     new_table = df_to_table(df, Table(), show_index=True)
     assert len(new_table.columns) == df.shape[1] + 1
