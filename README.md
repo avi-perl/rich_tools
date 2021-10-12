@@ -9,6 +9,9 @@
 <a href="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml" target="_blank">
     <img src="https://github.com/avi-perl/rich_tools/actions/workflows/test.yml/badge.svg" alt="Test">
 </a>
+<a href="https://codecov.io/gh/avi-perl/rich_tools">
+  <img src="https://codecov.io/gh/avi-perl/rich_tools/branch/master/graph/badge.svg?token=7A5RYLZ37B"/>
+</a>
 <a href="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml" target="_blank">
     <img src="https://github.com/avi-perl/rich_tools/actions/workflows/codeql-analysis.yml/badge.svg" alt="CodeQL Analysis">
 </a>
