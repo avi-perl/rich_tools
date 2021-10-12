@@ -8,7 +8,7 @@ import pandas as pd
 
 def df_to_table(
     pandas_dataframe: pd.DataFrame,
-    rich_table: Table,
+    rich_table: Table = Table(),
     show_index: bool = True,
     index_name: Optional[str] = None,
 ) -> Table:
