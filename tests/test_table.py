@@ -9,7 +9,7 @@ import pytest
 import pandas as pd
 from rich.table import Table
 
-from rich_tools import table_to_df, df_to_table
+from rich_tools import table_to_df, df_to_table, table_to_dicts
 
 
 @pytest.fixture
@@ -101,3 +101,62 @@ def test_table_to_df(table):
     assert isinstance(df, pd.DataFrame)
     assert len(df.index) == table.row_count
     assert df.shape[1] == len(table.columns)
+
+
+def test_table_to_dicts(table):
+    dicts = table_to_dicts(table)
+    assert table.row_count == len(list(dicts))
+
+
+def test_table_to_dicts_blank_header():
+    table = Table()
+    table.add_column("")
+    table.add_column("Title")
+    table.add_row(
+        "0",
+        "Title",
+    )
+
+    with pytest.raises(ValueError):
+        table_to_dicts(table)
+
+
+def test_table_to_dicts_dupe_header():
+    table = Table()
+    table.add_column("Title")
+    table.add_column("Title")
+    table.add_row(
+        "Title",
+        "Title",
+    )
+
+    with pytest.raises(ValueError):
+        table_to_dicts(table)
+
+
+def test_table_to_dicts_remove_markup_true():
+    table = Table()
+    table.add_column("[bold]Bold[/bold]")
+    table.add_row(
+        "[bold]Bold value[/bold]",
+    )
+
+    dicts = table_to_dicts(table, remove_markup=True)
+    dicts = list(dicts)
+
+    assert list(dicts[0].keys())[0] == "Bold"
+    assert list(dicts[0].values())[0] == "Bold value"
+
+
+def test_table_to_dicts_remove_markup_false():
+    table = Table()
+    table.add_column("[bold]Bold[/bold]")
+    table.add_row(
+        "[bold]Bold value[/bold]",
+    )
+
+    dicts = table_to_dicts(table, remove_markup=False)
+    dicts = list(dicts)
+
+    assert list(dicts[0].keys())[0] == "[bold]Bold[/bold]"
+    assert list(dicts[0].values())[0] == "[bold]Bold value[/bold]"

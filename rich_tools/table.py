@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Iterator, Dict, Any
 
 from rich.text import Text
 from rich.table import Table
@@ -53,3 +53,32 @@ def table_to_df(rich_table: Table) -> pd.DataFrame:
             for x in rich_table.columns
         }
     )
+
+
+def table_to_dicts(rich_table: Table, remove_markup: bool = True) -> Iterator[Dict[str, Any]]:
+    """Convert a rich.Table obj into a list of dictionary's with keys set as column names.
+
+    Args:
+        rich_table (Table): A rich Table instance containing data to be converted into a list of dictionary's.
+        remove_markup (bool): Removes rich markup from the keys and values in the table if True.
+
+    Returns:
+        Iterator: A list of the input Table's rows, each as a dictionary."""
+
+    def strip_tags(value: str) -> str:
+        if remove_markup:
+            return Text.from_markup(value).plain
+        else:
+            return value
+
+    column_keys = [strip_tags(c.header) for c in rich_table.columns]
+
+    if "" in column_keys:
+        raise ValueError("You cannot convert a Table instance that has blank header")
+
+    if len(column_keys) != len(set(column_keys)):
+        raise ValueError("You cannot convert a Table instance that has duplicate headers")
+
+    column_values = [[strip_tags(v) for v in c._cells] for c in rich_table.columns]
+
+    return (dict(zip(column_keys, row_values)) for row_values in zip(*column_values))
