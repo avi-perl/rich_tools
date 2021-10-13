@@ -25,14 +25,17 @@
 
 #### The current features are:
 
-- **Convert a [Pandas](https://pandas.pydata.org/) DataFrame into a [rich](https://github.com/willmcgugan/rich) Table.**
+- **Convert a [Pandas](https://pandas.pydata.org/) DataFrame into a [rich](https://github.com/willmcgugan/rich) Table ➜ `df_to_table()`**
 
   By making this conversion, we can now pretty print a DataFrame in the terminal with rich. Bridging the gap between 
   pandas and rich also provides a path for loading external data into a rich Table using Pandas functions such as `.from_csv()`!
-- **Convert a [rich](https://github.com/willmcgugan/rich) Table into a [Pandas](https://pandas.pydata.org/) DataFrame.**
+- **Convert a [rich](https://github.com/willmcgugan/rich) Table into a [Pandas](https://pandas.pydata.org/) DataFrame ➜ `table_to_df()`**
 
   By bridging the gap between a rich Table and a DataFrame, we can now take additional actions on our data such as   
   saving the data to a csv using the Pandas function `.to_csv()`!
+- **Convert a [rich](https://github.com/willmcgugan/rich) Table into a list of dictionaries. ➜ `table_to_dicts()`**
+
+  Get your tables rows as a list of dictionaries with column names as key, and row contents as values.
 
 ### Installation
 ```bash
