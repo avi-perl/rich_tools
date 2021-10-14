@@ -62,6 +62,10 @@ def table_to_dicts(rich_table: Table, remove_markup: bool = True) -> Iterator[Di
         rich_table (Table): A rich Table instance containing data to be converted into a list of dictionary's.
         remove_markup (bool): Removes rich markup from the keys and values in the table if True.
 
+    Raises:
+        ValueError: Raised in cases where the Table contains keys that do not make sense converted to a dict.
+        For example if the Table has a header with an empty string or duplicate keys.
+
     Returns:
         Iterator: A list of the input Table's rows, each as a dictionary."""
 
