@@ -1,9 +1,9 @@
 from typing import Optional, Iterator, Dict, Any
 
-from rich.text import Text
+import pandas as pd
 from rich.table import Table
 
-import pandas as pd
+from rich_tools.text import _strip_tags
 
 
 def df_to_table(
@@ -38,24 +38,29 @@ def df_to_table(
     return rich_table
 
 
-def table_to_df(rich_table: Table) -> pd.DataFrame:
+def table_to_df(rich_table: Table, remove_markup: bool = True) -> pd.DataFrame:
     """Convert a rich.Table obj into a pandas.DataFrame obj with any rich formatting removed from the values.
 
     Args:
         rich_table (Table): A rich Table that should be populated by the DataFrame values.
+        remove_markup (bool): Removes rich markup from the keys and values in the table if True.
 
     Returns:
         DataFrame: A pandas DataFrame with the Table data as its values."""
 
     return pd.DataFrame(
         {
-            x.header: [Text.from_markup(y).plain for y in x.cells]
+            _strip_tags(x.header, remove_markup): [
+                _strip_tags(y, remove_markup) for y in x.cells
+            ]
             for x in rich_table.columns
         }
     )
 
 
-def table_to_dicts(rich_table: Table, remove_markup: bool = True) -> Iterator[Dict[str, Any]]:
+def table_to_dicts(
+    rich_table: Table, remove_markup: bool = True
+) -> Iterator[Dict[str, Any]]:
     """Convert a rich.Table obj into a list of dictionary's with keys set as column names.
 
     Args:
@@ -69,20 +74,18 @@ def table_to_dicts(rich_table: Table, remove_markup: bool = True) -> Iterator[Di
     Returns:
         Iterator: A list of the input Table's rows, each as a dictionary."""
 
-    def strip_tags(value: str) -> str:
-        if remove_markup:
-            return Text.from_markup(value).plain
-        else:
-            return value
-
-    column_keys = [strip_tags(c.header) for c in rich_table.columns]
+    column_keys = [_strip_tags(c.header, remove_markup) for c in rich_table.columns]
 
     if "" in column_keys:
         raise ValueError("You cannot convert a Table instance that has blank header")
 
     if len(column_keys) != len(set(column_keys)):
-        raise ValueError("You cannot convert a Table instance that has duplicate headers")
+        raise ValueError(
+            "You cannot convert a Table instance that has duplicate headers"
+        )
 
-    column_values = [[strip_tags(v) for v in c._cells] for c in rich_table.columns]
+    column_values = [
+        [_strip_tags(v, remove_markup) for v in c._cells] for c in rich_table.columns
+    ]
 
     return (dict(zip(column_keys, row_values)) for row_values in zip(*column_values))

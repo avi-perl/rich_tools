@@ -36,6 +36,9 @@
 - **Convert a [rich](https://github.com/willmcgugan/rich) Table into a list of dictionaries. ➜ `table_to_dicts()`**
 
   Get your tables rows as a list of dictionaries with column names as key, and row contents as values.
+- **Strip [rich](https://github.com/willmcgugan/rich) markup tags from a string. ➜ `strip_markup_tags()`**
+
+  Helper function to remove tags from text formatted with rich. `"[bold]Bold[/bold]"` becomes `"Bold"`
 
 ### Installation
 ```bash

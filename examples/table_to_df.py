@@ -7,7 +7,6 @@ console = Console()
 
 
 if __name__ == "__main__":
-    # This example is taken from the rich documentation
     table = Table(show_header=True, header_style="bold magenta")
     table.add_column("Date", style="dim", width=12)
     table.add_column("Title")

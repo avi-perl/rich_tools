@@ -3,7 +3,6 @@ from datetime import datetime
 import pandas as pd
 from rich import box
 from rich.console import Console
-from rich.table import Table
 
 from rich_tools import df_to_table
 

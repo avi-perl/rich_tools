@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Tests for `rich_tools` package."""
+"""Tests for `rich_tools.table`"""
 
 from datetime import datetime
 
@@ -101,6 +101,34 @@ def test_table_to_df(table):
     assert isinstance(df, pd.DataFrame)
     assert len(df.index) == table.row_count
     assert df.shape[1] == len(table.columns)
+
+
+def test_table_to_df_remove_markup_false():
+    table = Table()
+    table.add_column("[bold]Bold[/bold]")
+    table.add_row(
+        "[bold]Bold value[/bold]",
+    )
+
+    df = table_to_df(table, remove_markup=False)
+    df_col_names = df.columns.values.tolist()
+
+    assert df_col_names[0] == "[bold]Bold[/bold]"
+    assert df.loc[0, :].values.tolist()[0] == "[bold]Bold value[/bold]"
+
+
+def test_table_to_df_remove_markup_true():
+    table = Table()
+    table.add_column("[bold]Bold[/bold]")
+    table.add_row(
+        "[bold]Bold value[/bold]",
+    )
+
+    df = table_to_df(table, remove_markup=True)
+    df_col_names = df.columns.values.tolist()
+
+    assert df_col_names[0] == "Bold"
+    assert df.loc[0, :].values.tolist()[0] == "Bold value"
 
 
 def test_table_to_dicts(table):
