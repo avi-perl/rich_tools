@@ -1,0 +1,180 @@
+name: CI
+
+on:
+  pull_request:
+    paths:
+      - '**.py'
+      - '**.pyi'
+      - pyproject.toml
+      - poetry.lock
+      - .github/workflows/*.yml # workflow changes
+  push:
+    branches: [master]
+    paths:
+      - '**.py'
+      - '**.pyi'
+      - pyproject.toml
+      - poetry.lock
+      - .github/workflows/*.yml # workflow changes
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SOURCE_DIR: ./rich_tools
+
+jobs:
+  lock:
+    name: Check poetry.lock
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Python toolchain
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.4.1
+        with:
+          version: 1.8.3
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+      - name: Load cached environment
+        id: cached-poetry-dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock', '**/pyproject.toml') }}
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root --all-extras --with dev
+      - name: Is poetry.lock up to date?
+        run: poetry lock --check
+
+  black:
+    name: Lint with black
+    needs: [lock]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install Python toolchain
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: .python-version
+    - name: Install Poetry
+      uses: snok/install-poetry@v1.4.1
+      with:
+        version: 1.8.3
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+    - name: Load cached environment
+      id: cached-poetry-dependencies
+      uses: actions/cache@v4
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock', '**/pyproject.toml') }}
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install --no-interaction --no-root --all-extras --with dev
+    - name: Run black
+      run: poetry run black ${{ env.SOURCE_DIR }} --check
+
+  flake8:
+    name: Lint with flake8
+    needs: [lock]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install Python toolchain
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: .python-version
+    - name: Install Poetry
+      uses: snok/install-poetry@v1.4.1
+      with:
+        version: 1.8.3
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+    - name: Load cached environment
+      id: cached-poetry-dependencies
+      uses: actions/cache@v4
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock', '**/pyproject.toml') }}
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install --no-interaction --no-root --all-extras --with dev
+    - name: Run flake8
+      run: poetry run flake8 ${{ env.SOURCE_DIR }}
+
+  test:
+    name: Test on ${{ matrix.os }} with Python ${{ matrix.python-version }}
+    needs: [black, flake8]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      pull-requests: write
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ['3.9', '3.10', '3.11']
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install Python toolchain
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Poetry
+      uses: snok/install-poetry@v1.4.1
+      with:
+        version: 1.8.3
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+    - name: Load cached environment
+      id: cached-poetry-dependencies
+      uses: actions/cache@v4
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock', '**/pyproject.toml') }}
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install --no-interaction --no-root --all-extras --with dev
+    - name: Run tests and collect coverage
+      shell: bash
+      run: poetry run pytest -v --cov=${{ env.SOURCE_DIR }} --cov-report=xml
+    - name: Render the report to the PR
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        header: test-report
+        recreate: true
+        path: .github-test-report.md
+      if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10'
+      continue-on-error: true
+    - name: Render the report to the step summary
+      shell: bash
+      run: |
+        if [ -f .github-test-report.md ]; then
+          echo "# Test Report" >> "${GITHUB_STEP_SUMMARY}"
+          cat .github-test-report.md >> "${GITHUB_STEP_SUMMARY}"
+        fi
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10'
+    - name: Determine if CODECOV_TOKEN is available
+      id: has_codecov
+      run: echo 'result=${{ secrets.CODECOV_TOKEN }}' >> $GITHUB_OUTPUT
+    - name: Upload to codecov.io
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true
+        fail_ci_if_error: false
+      if: steps.has_codecov.outputs.result != 0 && matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10'
