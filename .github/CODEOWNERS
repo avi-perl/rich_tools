@@ -1,0 +1,6 @@
+# CODEOWNERS
+# Configure pull request (PR) reviewers for different areas of the repository.
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Avi Perl is the overall reviewer for PRs.
+* @avi-perl
