@@ -40,11 +40,11 @@ Please add type annotations for all new code.
 
 ### Code Formatting
 
-Rich Tools uses [`black`](https://github.com/psf/black) for code formatting.
-I recommend setting up black in your editor to format on save.
+Rich Tools uses [`Ruff`](https://github.com/astral-sh/ruff) for code formatting.
+I recommend setting up Ruff in your editor to format on save.
 
-To run black from the command line:
+To run Ruff from the command line:
 
 ```bash
-black <path-to-files-changed>
+poetry run ruff check
 ```
