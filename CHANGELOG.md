@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Library dependencies updated to latest versions of everything.
 - Migrated from use of Black to Ruff for linting and formatting.
-- My thanks to @johnlettman for his contributions and pushing me to upgrade.
+- Many thanks to [johnlettman](https://github.com/johnlettman) for his contributions and pushing me to upgrade.
 
 ## [0.5.0] - 2021-10-13
 
