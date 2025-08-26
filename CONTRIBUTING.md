@@ -47,4 +47,5 @@ To run Ruff from the command line:
 
 ```bash
 poetry run ruff check
+poetry run ruff format
 ```
