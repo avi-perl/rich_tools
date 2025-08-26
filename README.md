@@ -15,10 +15,6 @@
 <a href="https://codecov.io/gh/avi-perl/rich_tools" target="_blank">
   <img src="https://codecov.io/gh/avi-perl/rich_tools/branch/master/graph/badge.svg?token=7A5RYLZ37B"/>
 </a>
-󠀠󠀠
-<a href="https://twitter.com/__aviperl__" target="_blank">
-    <img src="https://badgen.net/badge/icon/twitter?icon=twitter&label=Chat%20with%20me" alt="Twitter">
-</a>
 </p>
 
 ---

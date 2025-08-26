@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rich-tools"
-version = "0.5.1"
+version = "0.6.0"
 description = "A python package with helpful tools when working with the rich python library."
 authors = ["Avi Perl <avi@aviperl.me>"]
 license = "MIT"
@@ -14,24 +14,24 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "Operating System :: MacOS",
     "Operating System :: POSIX :: Linux",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Typing :: Typed",
 ]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-rich = "^13.8.0"
+rich = "^14.1.0"
 pandas = "^2.2.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^8.3.2"
 coverage = "^7.6.1"
-pytest-cov = "^5.0.0"
+pytest-cov = "^6.2.1"
 toml = "^0.10.2"
 
 [tool.poetry.group.dev.dependencies]
